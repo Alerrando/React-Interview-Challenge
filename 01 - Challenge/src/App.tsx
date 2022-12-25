@@ -13,13 +13,13 @@ export function App() {
   return (
     <div className="container" onClick={ e => addCircle(e) }>
       <div className='container-buttons'>
-        <button>Desfazer</button>
+        <button onClick={e => handleUndo(e)}>Desfazer</button>
         <button>Refazer</button>
       </div>
-      {listCircle.map((circle: AppProps) => {
+      {listCircle.map((circle: AppProps, index: number) => {
         return(
           <>
-            <span className='circle' style={{left: `${circle.left}px`, top: `${circle.top}px`}}></span>
+            <span className='circle' key={index} style={{left: `${circle.left}px`, top: `${circle.top}px`}}></span>
           </>
         )
       })}
@@ -33,5 +33,14 @@ export function App() {
     } 
     
     setListCircle([...listCircle ,coordinates]);
+  }
+
+  function handleUndo(e: MouseEvent){
+    e.stopPropagation();
+    setListRecover(listCircle);
+
+    const remove = listCircle.filter((circle: AppProps, index: number) => index !== listCircle.length - 1);
+    console.log(remove, listCircle)
+    setListCircle(remove);
   }
 }
