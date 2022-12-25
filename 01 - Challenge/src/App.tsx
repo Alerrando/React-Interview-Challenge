@@ -12,6 +12,10 @@ export function App() {
 
   return (
     <div className="container" onClick={ e => addCircle(e) }>
+      <div className='container-buttons'>
+        <button>Desfazer</button>
+        <button>Refazer</button>
+      </div>
       {listCircle.map((circle: AppProps) => {
         return(
           <>
