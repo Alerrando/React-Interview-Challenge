@@ -71,10 +71,11 @@ label {
   border-radius: 10px;
 }
 .row {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-  align-items: center;
+  gap: 20px;
 }
 input {
   border: 1px solid #ccc;
@@ -87,10 +88,9 @@ input:focus {
 .errorMessage {
   color: red;
   display: block;
-  background: rgba(255, 0, 0, 0.1);
+  flex-direction: column;
   font-weight: bold;
-  text-transform: uppercase;
   margin-bottom: 15px;
-  padding: 10px 15px;
-  border-radius: 6px;
+  text-transform: uppercase;
+  padding: 10px 0;
 }
