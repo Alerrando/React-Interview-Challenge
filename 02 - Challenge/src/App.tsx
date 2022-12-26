@@ -1,7 +1,10 @@
-import './index.css';
+import './app.css';
 import React from 'react';
 import { login } from './utils/index.js'
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+
 
 // Instruções:
 // * Você tem um formulário de login INCOMPLETO
@@ -16,25 +19,31 @@ import { useState } from 'react';
 // todo - Mostre um alerta caso o login seja efetuado com sucesso (javascript alert). Investigue a função login() para entender como ter sucesso na requisição.
 
 export function LoginForm() {
+  const { register, handleSubmit, formState } = useForm();
+
   return (
     <div className='wrapper'>
-      <div className='login-form'>
+      <form className='login-form' onSubmit={handleSubmit(submit)}>
         <h1>Login Form 🐞</h1>
         {/* Coloque a mensagem de erro de login na div abaixo. Mostre a div somente se houver uma mensagem de erro. */}
         <div className='errorMessage'></div>
         <div className='row'>
           <label htmlFor={'email'}>Email</label>
-          <input id={'email'} type={'email'} autoComplete='off' />
+          <input id={'email'} type={'email'} autoComplete='off' {...register("email", {required: true, minLength: 0})} />
         </div>
         <div className='row'>
           <label htmlFor={'password'}>Password</label>
-          <input id={'password'} type={'password'} />
+          <input id={'password'} type={'password'} {...register("password", {required: true, minLength: 6})} />
         </div>
 
         <div className='button'>
-          <button onClick={() => login("alerrando", "123")}>Login</button>
+          <button disabled={!formState.isValid}>Login</button>
         </div>
-      </div>
+      </form>
     </div>
   );
+
+  function submit(e) {
+    console.log(e)
+  }
 }
