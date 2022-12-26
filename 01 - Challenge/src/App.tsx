@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react'
+import { useState, MouseEvent, useEffect } from 'react'
 import './App.css'
 
 type AppProps = {
@@ -10,11 +10,12 @@ export function App() {
   const [listCircle, setListCircle] = useState<any[]>([]);
   const [listRecover, setListRecover] = useState<any[]>([]);
 
+
   return (
     <div className="container" onClick={ e => addCircle(e) }>
       <div className='container-buttons'>
         <button onClick={e => handleUndo(e)} disabled={listCircle.length == 0 ? true : false}>Desfazer</button>
-        <button onClick={e => handleRedo(e)} disabled={listCircle.length !== listRecover.length}>Refazer</button>
+        <button onClick={e => handleRedo(e)} disabled={listRecover.length <= listCircle.length}>Refazer</button>
       </div>
       {listCircle.map((circle: AppProps, index: number) => {
         return(
@@ -32,21 +33,26 @@ export function App() {
       left: e.clientX
     } 
     
+    setListRecover([...listRecover ,coordinates]);
     setListCircle([...listCircle ,coordinates]);
   }
 
   function handleUndo(e: MouseEvent){
     e.stopPropagation();
-    setListRecover(listCircle);
 
     const remove = listCircle.filter((circle: AppProps, index: number) => index !== listCircle.length - 1);
-    console.log(remove, listCircle)
     setListCircle(remove);
   }
 
   function handleRedo(e: MouseEvent){
     e.stopPropagation();
 
-    
+    const recoverInfo = listRecover[listCircle.length];
+    const recover = {
+      top: recoverInfo.top,
+      left: recoverInfo.left
+    }
+    console.log(listRecover, listCircle);
+    setListCircle([...listCircle , recover]);
   }
 }
