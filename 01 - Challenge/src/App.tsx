@@ -13,8 +13,8 @@ export function App() {
   return (
     <div className="container" onClick={ e => addCircle(e) }>
       <div className='container-buttons'>
-        <button onClick={e => handleUndo(e)}>Desfazer</button>
-        <button>Refazer</button>
+        <button onClick={e => handleUndo(e)} disabled={listCircle.length == 0 ? true : false}>Desfazer</button>
+        <button onClick={e => handleRedo(e)} disabled={listCircle.length !== listRecover.length}>Refazer</button>
       </div>
       {listCircle.map((circle: AppProps, index: number) => {
         return(
@@ -42,5 +42,11 @@ export function App() {
     const remove = listCircle.filter((circle: AppProps, index: number) => index !== listCircle.length - 1);
     console.log(remove, listCircle)
     setListCircle(remove);
+  }
+
+  function handleRedo(e: MouseEvent){
+    e.stopPropagation();
+
+    
   }
 }
