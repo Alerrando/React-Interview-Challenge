@@ -24,8 +24,7 @@ export function LoginForm() {
   const {
     register,
     handleSubmit,
-    setValue,
-    formState: { isValid, errors, isDirty },
+    formState: { isValid },
   } = useForm<FormInputs>();
 
   return (
